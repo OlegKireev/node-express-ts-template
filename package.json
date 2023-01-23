@@ -7,14 +7,16 @@
     "build": "npx tsc",
     "start": "node build/index.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js\"",
-    "lint": "eslint --ignore-path .eslintignore \"src/**/*.ts\" --fix"
+    "lint": "eslint --ignore-path .eslintignore \"src/**/*.ts\" --fix",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "husky": "^8.0.3"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
