@@ -24,6 +24,9 @@ mongoose
   .catch((err) => console.error(colors.error(`[db] Connecting error: ${err}`)));
 
 /** Routes */
+app.get('/', (req, res) => {
+  res.send('Welcome to the node express ts template json api');
+});
 app.use(postsRouter);
 
 /** Error handle middleware */
