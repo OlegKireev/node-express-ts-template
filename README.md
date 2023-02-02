@@ -5,6 +5,7 @@ The base template of NodeJS app includes:
 - Express
 - ESLint (airbnb config)
 - Git-hooks (Husky)
+- mongoose
 
 ## Preparation
 
