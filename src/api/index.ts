@@ -1,10 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
-import { postsRouter } from './routes';
-import { DB_CONNECT, PORT } from './constants';
-import { colors } from './utils';
-import { errorHandler } from './middlewares';
+import { postsRouter } from '../routes';
+import { DB_CONNECT, PORT } from '../constants';
+import { colors } from '../utils';
+import { errorHandler } from '../middlewares';
 
 /** App */
 const app = express();
