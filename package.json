@@ -4,9 +4,9 @@
   "description": "",
   "main": "api/index.js",
   "engines": {
-    "node": ">=14.0.0",
-    "yarn": ">=1.20.0",
-    "npm": "please-use-yarn"
+    "node": "16.17.0",
+    "yarn": "1.22.11",
+    "npm": "8.15.0"
   },
   "scripts": {
     "build": "npx tsc",
