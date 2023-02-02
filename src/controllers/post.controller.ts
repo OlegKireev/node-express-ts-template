@@ -1,12 +1,6 @@
 import { type Request, type Response } from 'express';
 import { Post } from '../models';
-
-// FIXME: move
-const handleError = (res: Response, error: Error) => {
-  res.status(500).send({
-    error: error.message,
-  });
-};
+import { handleError } from '../utils';
 
 const getAll = (req: Request, res: Response) => {
   Post.find()
