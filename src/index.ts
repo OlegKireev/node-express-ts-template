@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
-import { postsRouter, userRouter } from './routes';
+import { postsRouter, userRouter, authRouter } from './routes';
 import { DB_CONNECT, PORT } from './constants';
 import { colors } from './utils';
 import { errorHandler } from './middlewares';
@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
 });
 app.use(postsRouter);
 app.use(userRouter);
+app.use(authRouter);
 
 /** Error handle middleware */
 app.use(errorHandler);
