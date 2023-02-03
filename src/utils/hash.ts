@@ -1,4 +1,6 @@
 import { compare, hash } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
+import { JWT_SECRET } from '../constants';
 
 export const hashPassword = async (password: string) => {
   const hashedPassord = await hash(password, 10);
@@ -11,4 +13,9 @@ export const checkPassword = async (
 ) => {
   const isCompared = await compare(password, passwordHash);
   return isCompared;
+};
+
+export const createToken = async <T extends object>(payload: T) => {
+  const token = await sign(payload, JWT_SECRET);
+  return token;
 };
