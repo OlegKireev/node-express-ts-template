@@ -24,6 +24,7 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': 'off',
     'no-console': 'off',
+    'no-underscore-dangle': 'off',
     'import/prefer-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
     'import/extensions': [
