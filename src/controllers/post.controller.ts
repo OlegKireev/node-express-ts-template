@@ -55,8 +55,12 @@ const deleteById = (req: Request, res: Response) => {
   const { id } = req.params;
 
   Post.findByIdAndDelete(id)
-    .then(() => {
-      res.status(200).json(id);
+    .then((post) => {
+      if (post) {
+        res.status(200).json(post._id);
+      } else {
+        res.status(500).json({ error: `There is no post with id ${id}` });
+      }
     })
     .catch((err) => {
       handleError(res, err);
