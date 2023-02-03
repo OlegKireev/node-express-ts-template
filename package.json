@@ -4,13 +4,13 @@
   "description": "",
   "main": "api/index.js",
   "engines": {
-    "node": "16.17.0",
-    "yarn": "1.22.11",
-    "npm": "8.15.0"
+    "node": ">=16 <17",
+    "yarn": ">=1 <2",
+    "npm": ">=8 <9"
   },
   "scripts": {
     "build": "npx tsc",
-    "start": "node build/index.js",
+    "start": "yarn build && node build/index.js",
     "dev": "yarn build && concurrently \"npx tsc --watch\" \"nodemon -q build/index.js\"",
     "lint": "eslint --ignore-path .eslintignore \"src/**/*.ts\" --fix",
     "prepare": "husky install"
