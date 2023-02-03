@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
-import { postsRouter } from './routes';
+import { postsRouter, userRouter } from './routes';
 import { DB_CONNECT, PORT } from './constants';
 import { colors } from './utils';
 import { errorHandler } from './middlewares';
@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the node express ts template json api');
 });
 app.use(postsRouter);
+app.use(userRouter);
 
 /** Error handle middleware */
 app.use(errorHandler);
