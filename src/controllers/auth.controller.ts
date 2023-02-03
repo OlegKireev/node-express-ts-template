@@ -1,4 +1,5 @@
 import { type Request, type Response } from 'express';
+import { createToken } from '../utils/hash';
 import { User } from '../models';
 import { checkPassword, handleError } from '../utils';
 
@@ -13,7 +14,12 @@ const login = async (req: Request, res: Response) => {
 
     const isPasswordsCompared = await checkPassword(password, user?.password);
     if (isPasswordsCompared) {
-      return res.status(200).send('token abc');
+      const token = await createToken({
+        login: user.username,
+        role: user.role,
+      });
+
+      return res.status(200).send(token);
     }
     return res.status(500).json({ error: 'Password is incorrect' });
   } catch (err) {
