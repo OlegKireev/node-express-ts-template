@@ -17,9 +17,7 @@ const login = async (req: Request, res: Response) => {
     }
     return res.status(500).json({ error: 'Password is incorrect' });
   } catch (err) {
-    if (err instanceof Error) {
-      handleError(res, err);
-    }
+    handleError(res, err);
   }
 };
 
