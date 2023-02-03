@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express';
 import { User } from '../models';
-import { handleError } from '../utils';
+import { checkPassword, handleError } from '../utils';
 
 const login = async (req: Request, res: Response) => {
   try {
@@ -8,14 +8,14 @@ const login = async (req: Request, res: Response) => {
     const user = await User.findOne({ username: userLogin });
 
     if (!user) {
-      res.status(500).json({ error: `Can't find user with login ${userLogin}` });
+      return res.status(500).json({ error: `Can't find user with login ${userLogin}` });
     }
 
-    if (password === user?.password) {
-      res.status(200).send('token abc');
-    } else {
-      res.status(500).json({ error: 'Password is incorrect' });
+    const isPasswordsCompared = await checkPassword(password, user?.password);
+    if (isPasswordsCompared) {
+      return res.status(200).send('token abc');
     }
+    return res.status(500).json({ error: 'Password is incorrect' });
   } catch (err) {
     if (err instanceof Error) {
       handleError(res, err);
