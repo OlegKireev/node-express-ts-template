@@ -1,5 +1,5 @@
 import { compare, hash } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
+import { CONFIG } from '../config';
 import { JWT_SECRET } from '../constants';
 
 export const hashPassword = async (password: string) => {
@@ -16,6 +16,6 @@ export const checkPassword = async (
 };
 
 export const createToken = async <T extends object>(payload: T) => {
-  const token = await sign(payload, JWT_SECRET);
+  const token = await sign(payload, JWT_SECRET, { expiresIn: CONFIG.authorizationExpired });
   return token;
 };
