@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import { postsRouter, userRouter, authRouter } from './routes';
 import { DB_CONNECT, PORT } from './constants';
 import { colors } from './utils';
-import { errorHandler } from './middlewares';
+import { checkAuth, errorHandler } from './middlewares';
 
 /** App */
 const app = express();
@@ -22,6 +22,8 @@ mongoose
   .connect(`${DB_CONNECT}`)
   .then(() => console.log(colors.success('[db]: Connected!')))
   .catch((err) => console.error(colors.error(`[db] Connecting error: ${err}`)));
+
+app.use(checkAuth);
 
 /** Routes */
 app.get('/', (req, res) => {
