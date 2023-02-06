@@ -9,4 +9,5 @@ export const errorHandler = (
 ) => {
   console.error(colors.error(error.message));
   res.status(500).json({ error: 'Something went wrong' });
+  return next();
 };
