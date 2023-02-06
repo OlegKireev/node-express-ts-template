@@ -9,19 +9,27 @@ import { checkAuth, errorHandler } from './middlewares';
 /** App */
 const app = express();
 
-app.listen(PORT, () => {
-  console.log(colors.success(`[server]: started at http://localhost:${PORT}`));
-});
+const bootstrap = async () => {
+  try {
+    await mongoose.connect(`${DB_CONNECT}`)
+      .then(() => console.log(colors.success('[db]: Connected!')))
+      .catch((err) => console.error(colors.error(`[db] Connecting error: ${err}`)));
+    app.listen(PORT, () => {
+      console.log(colors.success(`[server]: started at http://localhost:${PORT}`));
+    });
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error(err);
+      process.exit(1);
+    }
+  }
+};
 
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
 /** DB */
 mongoose.set('strictQuery', false);
-mongoose
-  .connect(`${DB_CONNECT}`)
-  .then(() => console.log(colors.success('[db]: Connected!')))
-  .catch((err) => console.error(colors.error(`[db] Connecting error: ${err}`)));
 
 app.use(checkAuth);
 
@@ -32,6 +40,8 @@ app.get('/', (req, res) => {
 app.use(postsRouter);
 app.use(userRouter);
 app.use(authRouter);
+
+bootstrap();
 
 /** Error handle middleware */
 app.use(errorHandler);
