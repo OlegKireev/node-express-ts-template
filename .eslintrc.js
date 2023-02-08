@@ -78,7 +78,7 @@ module.exports = {
       'error',
       {
         default: {
-          optionalityOrder: 'optional-first',
+          optionalityOrder: 'required-first',
         },
       },
     ],
