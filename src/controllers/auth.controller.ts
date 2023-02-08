@@ -1,7 +1,9 @@
 import { type Request, type Response } from 'express';
-import { createToken } from '../utils/hash';
 import { User } from '../models';
-import { checkPassword, handleError } from '../utils';
+import {
+  checkPassword, handleError, ExpressError, createToken,
+} from '../utils';
+import { STATUS } from '../constants';
 
 const login = async (req: Request, res: Response) => {
   try {
@@ -9,7 +11,10 @@ const login = async (req: Request, res: Response) => {
     const user = await User.findOne({ username: userLogin });
 
     if (!user) {
-      return res.status(500).json({ error: `Can't find user with login ${userLogin}` });
+      throw new ExpressError({
+        code: STATUS.OK,
+        message: `Can't find user with login ${userLogin}`,
+      });
     }
 
     const isPasswordsCompared = await checkPassword(password, user?.password);
@@ -19,9 +24,12 @@ const login = async (req: Request, res: Response) => {
         role: user.role,
       });
 
-      return res.status(200).send(token);
+      return res.status(STATUS.OK).send(token);
     }
-    return res.status(500).json({ error: 'Password is incorrect' });
+    throw new ExpressError({
+      code: STATUS.OK,
+      message: 'Password is incorrect',
+    });
   } catch (err) {
     handleError(res, err);
   }

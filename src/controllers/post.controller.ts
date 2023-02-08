@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express';
 import { Post } from '../models';
-import { handleError } from '../utils';
+import { ExpressError, handleError } from '../utils';
 
 const getAll = (req: Request, res: Response) => {
   Post.find()
@@ -59,7 +59,9 @@ const deleteById = (req: Request, res: Response) => {
       if (post) {
         res.status(200).json(post._id);
       } else {
-        res.status(500).json({ error: `There is no post with id ${id}` });
+        throw new ExpressError({
+          message: `There is no post with id ${id}`,
+        });
       }
     })
     .catch((err) => {

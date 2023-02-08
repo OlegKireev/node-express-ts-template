@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express';
 import { User } from '../models';
-import { handleError, hashPassword } from '../utils';
+import { ExpressError, handleError, hashPassword } from '../utils';
 
 const getAll = (req: Request, res: Response) => {
   User.find()
@@ -66,7 +66,9 @@ const deleteById = (req: Request, res: Response) => {
       if (user) {
         res.status(200).json(user._id);
       } else {
-        res.status(500).json({ error: `There is no user with id ${id}` });
+        throw new ExpressError({
+          message: `There is no user with id ${id}`,
+        });
       }
     })
     .catch((err) => {
