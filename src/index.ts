@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import { postsRouter, userRouter, authRouter } from './routes';
 import { DB_CONNECT, PORT } from './constants';
 import { colors } from './utils';
-import { checkAuth, errorHandler } from './middlewares';
+import { auth, errorHandler } from './middlewares';
 
 /** App */
 const app = express();
@@ -31,7 +31,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 /** DB */
 mongoose.set('strictQuery', false);
 
-app.use(checkAuth);
+app.use(auth);
 
 /** Routes */
 app.get('/', (req, res) => {
