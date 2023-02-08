@@ -1,2 +1,2 @@
-export { errorHandler } from './errorHandler';
-export { checkAuth } from './checkAuth';
+export { errorHandler } from './errorHandler.middleware';
+export { auth } from './auth.middleware';

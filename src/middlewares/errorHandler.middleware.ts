@@ -1,13 +1,9 @@
 import { type NextFunction, type Request, type Response } from 'express';
-import { colors } from '../utils';
+import { createError } from '../utils';
 
 export const errorHandler = (
   error: Error,
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
-  console.error(colors.error(error.message));
-  res.status(500).json({ error: 'Something went wrong' });
-  return next();
-};
+) => res.status(500).json(createError({ code: 500 }));
