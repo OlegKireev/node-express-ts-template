@@ -1,3 +1,5 @@
 export { colors } from './colors';
-export { handleError } from './error';
-export { hashPassword, checkPassword } from './hash';
+export { handleError, ExpressError, createError } from './error';
+export {
+  hashPassword, checkPassword, checkToken, createToken,
+} from './hash';
