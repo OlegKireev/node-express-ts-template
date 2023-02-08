@@ -24,10 +24,10 @@ const getById = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
   try {
-    const { username, password, role } = req.body;
+    const { login, password, role } = req.body;
     const hashedPassword = await hashPassword(password);
     const newUser = new User({
-      username,
+      login,
       password: hashedPassword,
       role,
     });
@@ -43,14 +43,14 @@ const create = async (req: Request, res: Response) => {
 
 const updateById = async (req: Request, res: Response) => {
   try {
-    const { username, password, role } = req.body;
+    const { login, password, role } = req.body;
     const { id } = req.params;
     let hashedPassword;
     if (password) {
       hashedPassword = await hashPassword(password);
     }
     const user = await User.findByIdAndUpdate(id, {
-      username,
+      login,
       password: hashedPassword,
       role,
     }, { new: true });

@@ -8,7 +8,7 @@ import { STATUS } from '../constants';
 const login = async (req: Request, res: Response) => {
   try {
     const { login: userLogin, password } = req.body;
-    const user = await User.findOne({ username: userLogin });
+    const user = await User.findOne({ login: userLogin });
 
     if (!user) {
       throw new ExpressError({
@@ -20,7 +20,7 @@ const login = async (req: Request, res: Response) => {
     const isPasswordsCompared = await checkPassword(password, user?.password);
     if (isPasswordsCompared) {
       const token = await createToken({
-        login: user.username,
+        login: user.login,
         role: user.role,
       });
 
